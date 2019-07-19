@@ -2,7 +2,14 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-
+axios
+  .get("https://api.github.com/users/christopherc1331")
+  .then(response => {
+    console.log(response);
+  })
+  .catch(err => {
+    console.log(err);
+  });
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -45,6 +52,59 @@ const followersArray = [];
 </div>
 
 */
+
+function addCard(obj) {
+  let data = obj.data;
+
+  let parentDiv = document.querySelector(".cards");
+
+  let newCard = document.createElement("div");
+  containerDiv.classList.add("card");
+  parentDiv.appendChild(newCard);
+
+  let profileImg = document.createElement("img");
+  profileImg.src = data.avatar_url;
+  profileImg.classList.add("card img");
+  newCard.appendChild(profileImg);
+
+  let info = document.createElement("div");
+  info.classList.add("card-info");
+  newCard.appendChild(info);
+
+  let name = document.createElement("h3");
+  name.classList.add("name");
+  name.textContent = data.name;
+  info.appendChild(name);
+
+  let username = document.createElement("p");
+  username.classList.add("username");
+  username.textContent = data.login;
+  info.appendChild(username);
+
+  let location = document.createElement("p");
+  location.textContent = `Location: ${data.location}`;
+  info.appendChild(location);
+
+  let githubPage = document.createElement("a");
+  githubPage.textContent = data.html_url;
+  githubPage.src = data.html_url;
+
+  let profile = document.createElement("p");
+  profile.textContent = `Profile: ${githubPage}`;
+  info.appendChild(profile);
+
+  let followers = document.createElement("p");
+  followers.textContent = `Followers: ${data.followers}`;
+  info.appendChild(followers);
+
+  let following = document.createElement("p");
+  following.textContent = `Following: ${data.followers}`;
+  info.appendChild(following);
+
+  let bio = document.createElement("p");
+  bio.textContent = `Bio: ${data.bio}`;
+  info.appendChild(bio);
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
